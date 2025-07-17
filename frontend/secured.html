@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Secured Page</title>
+  <link rel="stylesheet" href="secured.css" />
+</head>
+<body>
+  <div class="secure-container">
+    <div class="card">
+      <h1>🔒 Secured Area</h1>
+      <p id="welcome-message">Loading secure content...</p>
+      <button id="logout-btn" class="logout-btn">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("authToken");
+    const messageEl = document.getElementById("welcome-message");
+
+    if (!token) {
+      messageEl.textContent = "Not logged in. Redirecting...";
+      setTimeout(() => window.location.href = "index.html", 2000);
+    } else {
+      fetch("http://localhost:5000/secured", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then(data => {
+        messageEl.textContent = data.message;
+      })
+      .catch(() => {
+        messageEl.textContent = "Session expired or invalid token. Redirecting...";
+        setTimeout(() => {
+          localStorage.removeItem("authToken");
+          window.location.href = "index.html";
+        }, 2000);
+      });
+    }
+
+    document.getElementById("logout-btn").onclick = () => {
+      localStorage.removeItem("authToken");
+      window.location.href = "index.html";
+    };
+  </script>
+</body>
+</html>

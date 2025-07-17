@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login & Register</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="tab-buttons">
+        <button id="signInBtn" class="tab-btn active">Sign In</button>
+        <button id="registerBtn" class="tab-btn">Create Account</button>
+      </div>
+
+      <form id="login-form" class="form active">
+        <h2>Welcome Back!</h2>
+        <input type="text" id="login-username" placeholder="Username" required autocomplete="username" />
+        <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password" />
+        <button type="submit" class="btn-primary">Sign In</button>
+        <p class="form-message" id="login-message"></p>
+      </form>
+
+      <form id="register-form" class="form">
+        <h2>Create Account</h2>
+        <input type="text" id="register-username" placeholder="Username" required autocomplete="username" />
+        <input type="password" id="register-password" placeholder="Password" required autocomplete="new-password" />
+        <button type="submit" class="btn-primary">Register</button>
+        <p class="form-message" id="register-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
